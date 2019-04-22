@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Board from './Board.js';
 import initialCheckersBoard from './initializeGame.js';
-import Piece from './Piece';
 
 export default class Game extends React.Component {
     constructor() {

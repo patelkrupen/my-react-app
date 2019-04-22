@@ -18,6 +18,10 @@ ol, ul {
   margin-bottom: 10px;
 }
 
+.pieces {
+  height: 50px;
+}
+
 .square {
   border: 1px solid;
   float: left;
@@ -59,11 +63,11 @@ ol, ul {
 
 /*Board color scheme Wheat from http://omgchess.blogspot.com/2015/09/chess-board-color-schemes.html*/
 .light{
-background-color:red;
+background-color:white;
 }
 
 .dark{
-    background-color: darkslategray;
+    background-color:darkgray;
 }
 
 #player-turn-box{
