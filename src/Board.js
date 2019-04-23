@@ -7,8 +7,9 @@ export default class Board extends React.Component {
         return (
             <Square
             piece = {this.props.squares[gridValue]}
-            style = {this.props.squares[gridValue] ? this.props.squares[gridValue].style : null}
+            image = {this.props.squares[gridValue] ? this.props.squares[gridValue].image : null}
             shade = {squareShade}
+            selected = {this.props.squares[gridValue] ? this.props.squares[gridValue].selected : null}
             onClick = {() => this.props.onClick(gridValue)}
             />
         );
@@ -22,7 +23,7 @@ export default class Board extends React.Component {
                 const squareShade = ((isEven(i) && isEven(j)) || (!isEven(i) && !isEven(j))) ? "light" : "dark";
                 squareRows.push(this.renderSquare(i*8+j, squareShade));
             }
-            board.push(<div className="row">{squareRows}</div>);
+            board.push(<div>{squareRows}</div>);
         }
 
         return (

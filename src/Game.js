@@ -17,39 +17,39 @@ export default class Game extends React.Component {
     handleClick(i) {
         const sq = this.state.squares.slice();
         const play = this.state.player;
-        const colorPiece = play === 1 ? 'red' : 'black'; 
+        // const colorPiece = play === 1 ? 'red' : 'black'; 
 
         if(this.state.sourceSelection >= 0) {
-            if(sq[this.state.sourceSelection].isMovePossible(this.state.sourceSelection, i)) {
-                // alert('move possible');
+            sq[this.state.sourceSelection].selected = false;
+            if(checkCapture(this.state.sourceSelection, i, this.state.player, sq) || sq[this.state.sourceSelection].isMovePossible(this.state.sourceSelection, i, sq)) {
                 sq[i] = sq[this.state.sourceSelection];
                 sq[this.state.sourceSelection] = null;
                 this.setState({
                     sourceSelection: -1,
                     player: play === 1 ? 2 : 1,
-                    squares: sq
+                    squares: sq,
+                    status: ''
                 });
             } else {
-                // alert('move not possible');
                 this.setState({
                     sourceSelection: -1,
+                    status: 'This move is not possible.'
                 });
             }
             return;
         }
 
-        if(!sq[i]) {
-            alert('Choose your piece.');
+        if(sq[i] && sq[i].player === this.state.player) {
+            sq[i].selected = true;
+            this.setState({
+                sourceSelection : i,
+                status: 'Select your destination.',
+                squares: sq
+            });
         } else {
-            if(sq[i].player !== this.state.player) {
-                alert("Choose your own piece.");
-            } else {
-                // Chose the right piece!
-                // alert(this.state.player + " " + i);
-                this.setState({
-                    sourceSelection : i
-                });
-            }
+            this.setState({
+                status: 'Select your piece to move.'
+            });
         }
     }
 
@@ -64,7 +64,72 @@ export default class Game extends React.Component {
                         />
                     </div>
                 </div>
+                <div className="helper">
+                    <p>{this.state.status}</p>
+                </div>
             </div>
         );
     }
+}
+
+function checkCapture(src, dest, player, sq) {
+    const sourceRow = Math.floor(src / 8);
+    const sourceCol = src - sourceRow * 8;
+    const destRow = Math.floor(dest / 8);
+    const destCol = dest - destRow * 8;
+    const oppPlayer = player === 1 ? 2 : 1;
+    if(player === 1) {
+        if(destRow - sourceRow === 2 && (sourceCol + 2 === destCol || sourceCol - 2 === destCol)) {
+            if(sourceCol === 0) {
+                if (sq[src + 9] && sq[src + 9].player === oppPlayer) {
+                    delete sq[src+9];
+                    return true;
+                } 
+            } else if (sourceCol === 7) {
+                if(sq[src + 7] && sq[src + 7].player === oppPlayer) {
+                    delete sq[src+7];
+                    return true;
+                }
+            } else {
+                if(sourceCol > destCol) {
+                    if(sq[src + 7] && sq[src + 7].player === oppPlayer){
+                        delete sq[src+7];
+                        return true;
+                    }
+                } else {
+                    if(sq[src + 9] && sq[src + 9].player === oppPlayer){
+                        delete sq[src+9];
+                        return true;
+                    }
+                }
+            }
+        }
+    } else {
+        if(sourceRow - destRow === 2 && (sourceCol + 2 === destCol || sourceCol - 2 === destCol)) {
+            if(sourceCol === 0) {
+                if (sq[src - 7] && sq[src - 7].player === oppPlayer) {
+                    delete sq[src-7];
+                    return true;
+                } 
+            } else if (sourceCol === 7) {
+                if(sq[src - 9] && sq[src - 9].player === oppPlayer) {
+                    delete sq[src-9];
+                    return true;
+                }
+            } else {
+                if(sourceCol > destCol) {
+                    if(sq[src - 9] && sq[src - 9].player === oppPlayer) {
+                        delete sq[src-9];
+                        return true;
+                    }
+                } else {
+                    if(sq[src - 7] && sq[src - 7].player === oppPlayer){
+                        delete sq[src-7];
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }

@@ -59,11 +59,17 @@ ol, ul {
   min-height: 50px;
 }
 
+.selected {
+  background-color: darkcyan;
+}
 
+.helper {
+  font-size: 25px;
+}
 
 /*Board color scheme Wheat from http://omgchess.blogspot.com/2015/09/chess-board-color-schemes.html*/
 .light{
-background-color:white;
+  background-color:white;
 }
 
 .dark{

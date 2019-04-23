@@ -2,20 +2,26 @@ import React from 'react';
 import './App.css';
 
 export default function Square(props) {
-    if(props.style) {
+    if(props.image) {
+        var elem = '';
+        if(props.selected) {
+            elem = 'selected';
+        } else {
+            elem = props.shade;
+        }
         return (
             <button 
-            className={"square " + props.shade}
-            onClick={props.onClick}
+            className = {"square " + elem}
+            onClick = {props.onClick}
             >
-            <img src={props.style} className="pieces" alt="logo" />
+            <img src = {props.image} className="pieces" alt="logo" />
             </button>
         );
     } else {
         return (
             <button 
-            className={"square " + props.shade}
-            onClick={props.onClick}
+            className = {"square " + props.shade}
+            onClick = {props.onClick}
             >
             </button>
         );

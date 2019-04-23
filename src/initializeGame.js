@@ -6,7 +6,7 @@ export default function initializeGame() {
     const squares = Array(64).fill(null);
 	const len = 8;
 	for(let x = 0; x < len; x++) {
-		if(x === 0 || x == 2) {
+		if(x === 0 || x === 2) {
 			for (let y = 1; y < len; y+=2) {
 				squares[x * 8 + y] = new Piece(1, RedPiece);
 			}
