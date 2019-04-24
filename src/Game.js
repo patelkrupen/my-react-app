@@ -2,6 +2,9 @@ import React from 'react';
 import './App.css';
 import Board from './Board.js';
 import initialCheckersBoard from './initializeGame.js';
+import RedKing from './images/redcrown.png';
+import BlackKing from './images/blackcrown.png';
+import KingPiece from './KingPiece';
 
 export default class Game extends React.Component {
     constructor() {
@@ -35,7 +38,6 @@ export default class Game extends React.Component {
                 /* Move the piece. */
                 sq[i] = sq[this.state.sourceSelection];
                 sq[this.state.sourceSelection] = null;
-
                 this.setState({
                     sourceSelection: -1,
                     player: play === 1 ? 2 : 1,
@@ -43,6 +45,7 @@ export default class Game extends React.Component {
                     status: 'Select your piece to move.',
                     turn: t === 'red'? 'black': 'red'
                 });
+                isKingPiece(sq, play);
             } else {
                 this.setState({
                     sourceSelection: -1,
@@ -88,5 +91,23 @@ export default class Game extends React.Component {
                 </div>
             </div>
         );
+    }
+}
+
+function isKingPiece(sq, play) {
+    if(play === 1) {
+        for(var x = 56; x < 64; x++) {
+            if(sq[x] && sq[x].player === play && !sq[x].isKing) {
+                delete sq[x];
+                sq[x]= new KingPiece(1, RedKing);
+            }
+        }
+    } else {
+        for(var x = 0; x < 8; x++) {
+            if(sq[x] && sq[x].player === play && !sq[x].isKing) {
+                delete sq[x];
+                sq[x]= new KingPiece(2, BlackKing);
+            }
+        }
     }
 }
