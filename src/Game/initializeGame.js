@@ -1,6 +1,6 @@
-import Piece from "./Piece.js";
-import RedPiece from "./images/redpiece.png";
-import BlackPiece from "./images/blackpiece.png";
+import Piece from "../Pieces/Piece.js";
+import RedPiece from "../images/redpiece.png";
+import BlackPiece from "../images/blackpiece.png";
 
 export default function initializeGame() {
   const squares = Array(64).fill(null);

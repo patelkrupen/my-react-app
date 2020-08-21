@@ -1,10 +1,10 @@
 import React from "react";
-import "./App.css";
-import Board from "./Board.js";
-import initialCheckersBoard from "./initializeGame.js";
-import RedKing from "./images/redcrown.png";
-import BlackKing from "./images/blackcrown.png";
-import KingPiece from "./KingPiece";
+import "../App.css";
+import Board from "../Board/Board.js";
+import initialCheckersBoard from "../Game/initializeGame.js";
+import RedKing from "../images/redcrown.png";
+import BlackKing from "../images/blackcrown.png";
+import KingPiece from "../Pieces/KingPiece";
 
 export default class Game extends React.Component {
   constructor() {

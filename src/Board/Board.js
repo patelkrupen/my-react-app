@@ -1,6 +1,6 @@
 import React from "react";
-import "./App.css";
-import Square from "./Board/Square";
+import "../App.css";
+import Square from "./Square";
 
 export default class Board extends React.Component {
   renderSquare(gridValue, squareShade) {
